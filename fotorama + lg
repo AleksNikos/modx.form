@@ -1,0 +1,112 @@
+{if $files?}
+    {foreach $files as $file}
+        <a href="{$file['url']}" target="_blank">
+            <img src="{$file['medium']}" alt="{$file['name']}" title="{$file['name']}">
+        </a>
+    {/foreach}
+{else}
+    <img src="{('assets_url' | option) ~ 'components/ms2gallery/img/web/ms2_medium.png'}" alt="" title=""/>
+{/if}
+
+<!-- $ms2Gallery_product_in_tpl -->
+{'!ms2Gallery' | snippet :[
+    'tpl'           => 'ms2Gallery_product_in_tpl',
+    'toPlaceholder' => 'gall'
+]}
+
+<div class="catalog-item-wrap">
+    <div class="counter"></div> 
+    <div id="aniimated-thumbnials">
+        {'gall' | placeholder}
+    </div>
+    <div class="wr_carousel">
+        <a href="#" class="full_foto"></a>
+        <div class="fotorama">
+            {'gall' | placeholder}
+        </div>
+    </div>
+</div>
+
+<!-- sass -->
+.catalog-item-wrap
+  .counter
+    margin-bottom: $gutter
+    //display: none
+
+.wr_carousel
+  margin: 0 0 30px
+  position: relative
+  overflow: hidden
+
+  .full_foto
+    background-image: url('../libs-bower/fotorama-4.6.4/fotorama.png')
+    width: 30px
+    height: 30px
+    background-position: 0px 125px
+    top: 0
+    right: 0
+    z-index: 20
+    display: inline-block
+    position: absolute
+    transform: translate3d(55px, -55px, 0)
+    transition-property: transform, opacity
+    transition-duration: .3s
+
+  &:hover
+    .full_foto
+      transform: translate3d(0, 0, 0)
+      transition-property: transform, opacity
+      transition-duration: .3s
+
+
+  #lightcase-case:not([data-lc-type=error]) #lightcase-content .lightcase-contentInner .lightcase-inlineWrap
+    padding: 0 !important
+
+.lg-outer .lg-thumb-item.active,
+.lg-outer .lg-thumb-item:hover
+  border-color: #f83201
+
+#aniimated-thumbnials
+  display: none
+
+.lg-backdrop
+  z-index: 1050
+
+.fotorama--fullscreen,
+.fotorama--fullscreen .fotorama__nav, .fotorama--fullscreen .fotorama__stage
+  background: #fff
+
+.fotorama__wrap
+  margin: 0 auto
+
+.fotorama__thumb-border
+  background-color: rgba(255, 255, 255, 0.3)
+  border-color: #f83201
+
+.fotorama__thumb
+  background-color: #fff !important
+
+.fotorama__caption
+  display: none
+
+.fotorama__nav-wrap
+  padding-top: $gutter
+  position: relative
+
+.foto__captions
+  position: absolute
+  top: 7px
+  width: 100%
+  text-align: center
+  display: none
+  
+<!-- include -->
+// gulp
+'app/libs-bower/fotorama-4.6.4/fotorama.js',
+'app/libs-bower/lightgallery/lightgallery.min.js',
+'app/libs-bower/lightgallery/lg-thumbnail.min.js',
+'app/libs-bower/lightgallery/lg-fullscreen.min.js',
+'app/libs-bower/lightgallery/lg-zoom.min.js',
+//sass
+@import "../libs-bower/fotorama-4.6.4/fotorama.css"
+@import "../libs-bower/lightgallery/lightgallery.css"
